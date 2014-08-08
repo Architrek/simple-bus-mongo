@@ -11,6 +11,19 @@ This implementation of a circular buffer to support a message queue is implement
 
 Check [this property file] (src/test/resources/META-INF/com/whiteandreetto/prototypes/simplebus/simplebus.properties) for details about environmental dependencies
 
+```code
+
+mongo.db.host=localhost
+mongo.db.port=27017
+mongo.db=simple-bus-mongo
+mongo.db.message.collection=CIRCULAR_BUFFER
+mongo.db.message.processed=PARKING_LOT
+mongo.db.message.collection.max=10
+mongo.db.message.collection.size=1000000000
+mongo.db.clean.at.startup=true
+
+```
+
 ## Build
 
 [Gradle] (build.gradle) and [Maven] (pom.xml) build mechanisms are available.

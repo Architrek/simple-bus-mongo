@@ -7,8 +7,10 @@ import com.mongodb.DBCursor;
 import com.whiteandreetto.prototypes.simplebus.gateway.QueueSendService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.mongodb.MongoDbFactory;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicLong;
@@ -25,13 +27,14 @@ import java.util.concurrent.locks.ReentrantLock;
 public class DBListener extends Thread {
 
 
-    private static Lock lock = new ReentrantLock();
+    private static final Lock REENTRANT_LOCK = new ReentrantLock();
 
     private static final Logger logger = LoggerFactory.getLogger(DBListener.class);
 
     private AtomicBoolean running;
     private AtomicLong counter;
     private QueueSendService queueSendService;
+    private boolean resendDuplicates;
 
     private String MONGO_DB_COLLECTION;
 
@@ -51,7 +54,9 @@ public class DBListener extends Thread {
     @Override
     public void run() {
 
-        if (DBListener.lock.tryLock()) {
+        logger.info("Reentrant Lock {}", DBListener.REENTRANT_LOCK.tryLock());
+
+        if (DBListener.REENTRANT_LOCK.tryLock()) {
 
             try {
                 final HashSet<Integer> processedMessageIds = new HashSet<>();
@@ -59,76 +64,92 @@ public class DBListener extends Thread {
                 while (running.get()) {
                     try {
                         mongoDbFactory.getDb().requestStart();
-                        DBCursor cur = createCursor(lastTimestamp);
-                        try {
-                            while (cur.hasNext() && running.get()) {
-                                final BasicDBObject doc = (BasicDBObject) cur.next();
+                        DBCursor cursor = createCursor(lastTimestamp);
+                        if (cursor != null)
+                            try {
+                                // keep reading the cursor, it's live
+                                while (cursor.hasNext() && running.get()) {
 
-                                try {
-                                    final int id = doc.getInt("_id");
+                                    final BasicDBObject messageFromBuffer = (BasicDBObject) cursor.next();
 
-                                    logger.info("Cursor @{}", id);
+                                    try {
+                                        final int id = messageFromBuffer.getInt("_id");
 
-                                    lastTimestamp = doc.getLong("timestamp");
+                                        logger.info("Cursor @{}", id);
 
-                                    if (processedMessageIds.contains(id)) {
-                                        logger.warn("duplicate id found: " + id);
+                                        lastTimestamp = messageFromBuffer.getLong("timestamp");
+
+
+                                        if (processedMessageIds.contains(id)) {
+                                            logger.warn("Duplicate id found: " + id);
+                                            if (resendDuplicates) {
+                                                processedMessageIds.add(id);
+                                                queueSendService.process(messageFromBuffer);
+                                                counter.incrementAndGet();
+                                            }
+                                        } else {
+
+                                            processedMessageIds.add(id);
+                                            queueSendService.process(messageFromBuffer);
+                                            counter.incrementAndGet();
+                                        }
+
+                                    } catch (NullPointerException e) {
+                                        logger.warn("Circular buffer restart");
+                                        // shit happens, start reading message more recent than now
+                                        lastTimestamp = System.currentTimeMillis();
                                     }
 
-                                    processedMessageIds.add(id);
 
-                                    queueSendService.process(doc);
-                                    counter.incrementAndGet();
-
-                                } catch (NullPointerException e) {
-
-                                    logger.warn("Circular buffer restart");
-                                    lastTimestamp = System.currentTimeMillis();
                                 }
-
+                            } finally {
                                 try {
-                                    cur.hasNext();
-                                } catch (Exception e) {
-                                    // reached teh end of the circular buffer
-                                    cur = createCursor(lastTimestamp);
+                                    cursor.close();
+                                    // NEED DB NO MORE
+                                    mongoDbFactory.getDb().requestDone();
+                                } catch (final Throwable t) {
+                                    logger.error("ERROR! {}", t.getMessage());
                                 }
-
                             }
-                        } finally {
-                            try {
-                                if (cur != null) cur.close();
-                            } catch (final Throwable t) { /* nada */ }
-                            mongoDbFactory.getDb().requestDone();
-                        }
-
                         try {
                             Thread.sleep(100);
                         } catch (final InterruptedException ie) {
+                            logger.error("ERROR! {}", ie.getMessage());
                             break;
                         }
                     } catch (final Throwable t) {
-                        t.printStackTrace();
+                        logger.error("ERROR! {}", t.getMessage());
                     }
                 }
             } finally {
-
-                DBListener.lock.unlock();
-
+                // NEED SERVICE NO MORE, RELEASE LOCK
+                queueSendService = null;
+                DBListener.REENTRANT_LOCK.unlock();
             }
         }
-
+        logger.info("Run, completed");
     }
 
     private DBCursor createCursor(final long pLast) {
 
-        final DBCollection col = mongoDbFactory.getDb().getCollection(MONGO_DB_COLLECTION);
+        try {
+            final DBCollection col = mongoDbFactory.getDb().getCollection(MONGO_DB_COLLECTION);
+            final ArrayList<BasicDBObject> and = new ArrayList<>();
+            and.add(new BasicDBObject("isReadable", new BasicDBObject("$eq", true)));
+            if (pLast != 0) {
+                and.add(new BasicDBObject("timestamp", new BasicDBObject("$gt", pLast)));
+            }
+            final BasicDBObject query = new BasicDBObject("$and", and);
 
-        if (pLast == 0) {
-            return col.find().sort(new BasicDBObject("$natural", 1)).addOption(Bytes.QUERYOPTION_TAILABLE).addOption(Bytes.QUERYOPTION_AWAITDATA);
+            return col.find(query)
+                    .sort(new BasicDBObject("$natural", 1))
+                    .addOption(Bytes.QUERYOPTION_TAILABLE)
+                    .addOption(Bytes.QUERYOPTION_AWAITDATA);
+
+        } catch (DataAccessException e) {
+            logger.error("ERROR! {}", e.getMessage());
         }
-
-        final BasicDBObject query = new BasicDBObject("timestamp", new BasicDBObject("$gt", pLast));
-        return col.find(query).sort(new BasicDBObject("$natural", 1)).addOption(Bytes.QUERYOPTION_TAILABLE).addOption(Bytes.QUERYOPTION_AWAITDATA);
+        return null;
     }
 
 

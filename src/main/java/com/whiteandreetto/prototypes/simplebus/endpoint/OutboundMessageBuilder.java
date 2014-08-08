@@ -23,7 +23,6 @@ public class OutboundMessageBuilder {
         msg.put("old_id", oldId);
         msg.put("_id", System.currentTimeMillis());
         return msg;
-
     }
 
 }

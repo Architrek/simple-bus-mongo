@@ -2,6 +2,7 @@ package com.whiteandreetto.prototypes.simplebus.dbevents;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
@@ -19,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * (c) White Andreetto Consulting 2014 All rights reserved
  */
 @Component
-public class ContextStartEventHandler implements ApplicationListener<ContextRefreshedEvent> {
+public class ContextStartEventHandler implements ApplicationListener<ContextRefreshedEvent>, DisposableBean {
 
     private static final Logger logger = LoggerFactory.getLogger(ContextStartEventHandler.class);
 
@@ -36,7 +37,6 @@ public class ContextStartEventHandler implements ApplicationListener<ContextRefr
 
     @Value("${mongo.db.message.collection.size}")
     private String COLLECTION_SIZE;
-
 
     @Value("${mongo.db.message.processed}")
     private String PARKING_LOT;
@@ -61,7 +61,10 @@ public class ContextStartEventHandler implements ApplicationListener<ContextRefr
     }
 
 
-
-
-
+    @Override
+    public void destroy() throws Exception {
+        //dbListenerHandler.destroy();
+        //logger.info("listener: {}",dbListenerHandler.toString());
+        logger.info("Shutdown completed");
+    }
 }

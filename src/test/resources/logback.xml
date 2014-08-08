@@ -17,7 +17,7 @@
     <logger name="org.springframework.core" level="warn" />
     <logger name="org.springframework" level="warn" />
 
-    <root level="info">
+    <root level="warn">
         <appender-ref ref="console" />
     </root>
 

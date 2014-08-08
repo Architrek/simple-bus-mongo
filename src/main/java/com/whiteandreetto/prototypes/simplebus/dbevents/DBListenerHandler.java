@@ -1,8 +1,10 @@
 package com.whiteandreetto.prototypes.simplebus.dbevents;
 
 import com.whiteandreetto.prototypes.simplebus.gateway.QueueSendService;
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.MongoDbFactory;
@@ -19,7 +21,7 @@ import java.util.concurrent.atomic.AtomicLong;
  * (c) White Andreetto Consulting 2014 All rights reserved
  */
 @Component
-public class DBListenerHandler {
+public class DBListenerHandler implements DisposableBean {
 
     private static final Logger logger = LoggerFactory.getLogger(DBListenerHandler.class);
 
@@ -30,7 +32,6 @@ public class DBListenerHandler {
     @Autowired
     QueueSendService queueSendService;
 
-
     @Value("${mongo.db.message.collection}")
     private String MONGO_DB_COLLECTION;
 
@@ -38,7 +39,8 @@ public class DBListenerHandler {
     final AtomicBoolean readRunning = new AtomicBoolean(true);
     final AtomicLong readCounter = new AtomicLong(0);
 
-    Thread listener;
+    private Thread listener;
+
 
 
     public void beginListening() throws Exception {
@@ -62,16 +64,28 @@ public class DBListenerHandler {
 
     public void finishListening() throws Exception {
 
-        logger.info("Stop listening to DB event");
+        logger.info("Begin shutdown operations");
 
         readRunning.set(false);
-        Thread.sleep(5000);
+        Thread.sleep(1000);
 
         if (listener != null) {
             listener.interrupt();
         }
 
+        listener = null;
 
     }
 
+    @Override
+    public void destroy() throws Exception {
+        logger.info("Handler Shutdown");
+       // listener=null;
+    }
+
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
 }

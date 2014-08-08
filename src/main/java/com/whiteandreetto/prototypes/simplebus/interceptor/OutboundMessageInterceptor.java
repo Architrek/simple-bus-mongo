@@ -23,6 +23,8 @@ public class OutboundMessageInterceptor extends ChannelInterceptorAdapter {
     @Override
     public void postSend(Message<?> message, MessageChannel channel, boolean sent) {
 
+        logger.info("Sent: {}", sent);
+
         BasicDBObject inMsg = (BasicDBObject) message.getPayload();
 
         if (sent) {

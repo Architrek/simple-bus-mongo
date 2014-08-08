@@ -1,13 +1,11 @@
 package com.whiteandreetto.prototypes.simplebus;
 
-import com.whiteandreetto.prototypes.simplebus.utils.DBHelper;
 import org.junit.After;
 import org.junit.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -27,8 +25,6 @@ public class AbstractIntegrationTest {
     @Autowired
     MongoDbFactory factory;
 
-    @Autowired
-    PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer;
 
 
     @Value("${mongo.db.message.collection}")
@@ -48,7 +44,7 @@ public class AbstractIntegrationTest {
     public void setUp() {
 
         logger.info("@Before");
-        DBHelper.invoke(factory, COLLECTION_SIZE, COLLECTION_CAP, MONGO_DB_COLLECTION, PARKING_LOT);
+
 
     }
 

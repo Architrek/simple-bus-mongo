@@ -69,12 +69,14 @@
     <option name="serverConfigurations">
       <list>
         <ServerConfiguration>
+          <option name="connectOnIdeStartup" value="true" />
           <option name="label" value="simple-bus-mongo" />
           <option name="serverUrls">
             <list>
               <option value="localhost:27017" />
             </list>
           </option>
+          <option name="userDatabase" value="simple-bus-mongo" />
         </ServerConfiguration>
       </list>
     </option>

@@ -49,11 +49,12 @@ public class MessageFlowIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void testSomething() throws Exception {
 
-        for (int idx = 0; idx <= 20; idx++) {
+        for (int idx = 0; idx < 100; idx++) {
 
             // SOME RANDOM INTERVAL BETWEEN MESSAGES
             try {
-                Thread.sleep(new Random(System.nanoTime()).nextInt(1000));
+                //Thread.sleep(new Random(System.nanoTime()).nextInt(100));
+                Thread.sleep(10);
             } catch (final InterruptedException ie) {
                 logger.error(ie.getMessage());
             }
@@ -61,6 +62,7 @@ public class MessageFlowIntegrationTest extends AbstractIntegrationTest {
             // BUILD AND SEND A MESSAGE
             final Message<String> oneMessage = MessageBuilder.withPayload("SAMPLE PAYLOAD FOR A SAMPLE MESSAGE")
                     .setHeader("_id", idx)
+                    .setHeader("sender", "TEST-CASE")
                     .setHeader("TIMESTAMP", System.currentTimeMillis())
                     .build();
 

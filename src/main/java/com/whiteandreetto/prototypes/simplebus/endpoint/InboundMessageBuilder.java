@@ -2,11 +2,13 @@ package com.whiteandreetto.prototypes.simplebus.endpoint;
 
 import org.springframework.integration.IntegrationMessageHeaderAccessor;
 import org.springframework.integration.annotation.Transformer;
+import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Created by AANG on 06/08/14/18:08.
@@ -28,18 +30,12 @@ public class InboundMessageBuilder {
         IntegrationMessageHeaderAccessor accessor = new IntegrationMessageHeaderAccessor(msg);
 
         Map<String, Object> dbo = new HashMap<>();
-
         dbo.put("_id", accessor.getHeader("_id"));
-        dbo.put("uuid", accessor.getId());
-        dbo.put("correlationId", accessor.getCorrelationId());
-        dbo.put("sequenceNumber", accessor.getSequenceNumber());
-        dbo.put("sequenceSize", accessor.getSequenceSize());
-        dbo.put("expirationDate", accessor.getExpirationDate());
-        dbo.put("priority", accessor.getPriority());
+        dbo.put("timestamp", accessor.getHeader("TIMESTAMP"));
+        dbo.put("sender", accessor.getHeader("SENDER"));
+        dbo.put("uuid", UUID.randomUUID());
         dbo.put("payload", msg.getPayload());
-        dbo.put("timestamp", accessor.getTimestamp());
-        dbo.put("replyChannel", accessor.getReplyChannel());
-        dbo.put("errorChanel", accessor.getErrorChannel());
+        dbo.put("isReadable",true);
 
         return dbo;
     }

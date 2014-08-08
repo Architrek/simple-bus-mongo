@@ -1,6 +1,8 @@
 package com.whiteandreetto.prototypes.simplebus.cfg;
 
 import com.mongodb.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,13 +15,14 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.util.Assert;
 
+import java.util.Set;
+
 /**
  * Created by anda on 06/08/14.
  */
 @Configuration
 @PropertySource("classpath:META-INF/com/whiteandreetto/prototypes/simplebus/simplebus.properties")
-public class MongoDBConfiguration  {
-
+public class MongoDBConfiguration {
 
     @Value("${mongo.db}")
     private String MONGO_DB;
@@ -36,6 +39,8 @@ public class MongoDBConfiguration  {
     @Value("${mongo.db.message.processed}")
     private String PARKING_LOT;
 
+    @Value("${mongo.db.clean.at.startup}")
+    private boolean CLEAN_AT_STARTUP;
 
     @Value("${mongo.db.message.collection.max}")
     private Long MAXCOUNT;
@@ -43,14 +48,12 @@ public class MongoDBConfiguration  {
     @Value("${mongo.db.message.collection.size}")
     private Long SIZE;
 
+    private static final Logger logger = LoggerFactory.getLogger(MongoDBConfiguration.class);
 
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
 
     /**
      * Initializes the factory and collections if required
+     *
      * @return
      * @throws Exception
      */
@@ -64,9 +67,32 @@ public class MongoDBConfiguration  {
 
         //INIT COLLECTIONS IF NOT PRESENT
 
+        DBCollection dbCollection;
+
+
+        if (CLEAN_AT_STARTUP) {
+
+            final Set<String> collectionNames = db.getCollectionNames();
+
+            for (String next : collectionNames) {
+
+                final DBCollection collection = db.getCollection(next);
+                if (!collection.getName().equals("system.indexes")) {
+
+                    logger.info("DROPPING COLLECTION {}", next);
+
+                    collection.drop();
+                }
+            }
+
+        }
+
+
         if (db.collectionExists(MONGO_DB_COLLECTION)) {
-            final DBCollection dbCollection = db.getCollection(MONGO_DB_COLLECTION);
+
+            dbCollection = db.getCollection(MONGO_DB_COLLECTION);
             Assert.isTrue(dbCollection.isCapped(), "Expecting a capped Collection");
+
         } else {
             final DBObject options = BasicDBObjectBuilder.start()
                     .add("capped", true)
@@ -74,32 +100,41 @@ public class MongoDBConfiguration  {
                     .add("max", MAXCOUNT)
                     .get();
 
-            db.createCollection(MONGO_DB_COLLECTION, options);
+            dbCollection = db.createCollection(MONGO_DB_COLLECTION, options);
 
             final MongoTemplate template = new MongoTemplate(simpleMongoDbFactory);
 
             template.indexOps(MONGO_DB_COLLECTION).ensureIndex(new Index().on("timestamp", Sort.Direction.ASC));
             template.indexOps(MONGO_DB_COLLECTION).ensureIndex(new Index().on("_id", Sort.Direction.ASC));
 
+            Assert.isTrue(dbCollection.isCapped(), "Expecting a capped Collection");
+
         }
 
+        DBCollection parkingLotDbCollection;
 
-        if (!db.collectionExists(PARKING_LOT)) {
+
+        if (db.collectionExists(PARKING_LOT)) {
+            parkingLotDbCollection = db.getCollection(PARKING_LOT);
+            Assert.isTrue(!parkingLotDbCollection.isCapped(), "Not expecting a capped Collection");
+
+        } else {
             final DBObject options = BasicDBObjectBuilder.start()
                     .add("size", SIZE)
                     .get();
-            db.createCollection(PARKING_LOT, options);
+            parkingLotDbCollection = db.createCollection(PARKING_LOT, options);
 
             final MongoTemplate template = new MongoTemplate(simpleMongoDbFactory);
 
             template.indexOps(PARKING_LOT).ensureIndex(new Index().on("timestamp", Sort.Direction.ASC));
             template.indexOps(PARKING_LOT).ensureIndex(new Index().on("_id", Sort.Direction.ASC));
 
+            Assert.isTrue(!parkingLotDbCollection.isCapped(), "Not expecting a capped Collection");
+
         }
 
         return simpleMongoDbFactory;
     }
-
 
 
 }

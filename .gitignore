@@ -46,6 +46,6 @@ release.properties
 build/
 # Ignore Gradle GUI config
 gradle-app.setting
-simple-bus-mongo.iml
-simple-bus-mongo.ipr
-simple-bus-mongo.iws
+*.iml
+*.ipr
+*.iws

@@ -32,10 +32,11 @@
 
 
     <scm>
+        <connection>scm:git:ssh://github.com/motherblessing/simple-bus-mongo.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/motherblessing/simple-bus-mongo.git</developerConnection>
         <url>https://github.com/motherblessing/simple-bus-mongo.git</url>
-        <connection>scm:git:git://github.com:motherblessing/motherblessing-mvn-repo.git</connection>
-        <developerConnection>scm:git:git@github.com:motherblessing/motherblessing-mvn-repo.git</developerConnection>
     </scm>
+
 
     <distributionManagement>
         <repository>

@@ -2,21 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ab2636c-8729-459c-bfeb-c60f8410e0ac" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/com/whiteandreetto/prototypes/simplebus/utils/DBHelper.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/whiteandreetto/prototypes/simplebus/AbstractIntegrationTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/whiteandreetto/prototypes/simplebus/AbstractIntegrationTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/AppConfig.java" afterPath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/AppConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/ContextStartEventHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/ContextStartEventHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/DBListener.java" afterPath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/DBListener.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/DBListenerHandler.java" afterPath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/DBListenerHandler.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/endpoint/InboundMessageBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/endpoint/InboundMessageBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/whiteandreetto/prototypes/simplebus/MessageFlowIntegrationTest.java" afterPath="$PROJECT_DIR$/src/test/java/com/whiteandreetto/prototypes/simplebus/MessageFlowIntegrationTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/MongoDBConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/MongoDBConfiguration.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/endpoint/OutboundMessageBuilder.java" afterPath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/endpoint/OutboundMessageBuilder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/interceptor/OutboundMessageInterceptor.java" afterPath="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/interceptor/OutboundMessageInterceptor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/logback.xml" afterPath="$PROJECT_DIR$/src/test/resources/logback.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simple-bus-mongo.ipr" afterPath="$PROJECT_DIR$/simple-bus-mongo.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simple-bus-mongo.iws" afterPath="$PROJECT_DIR$/simple-bus-mongo.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/META-INF/com/whiteandreetto/prototypes/simplebus/simplebus.properties" afterPath="$PROJECT_DIR$/src/test/resources/META-INF/com/whiteandreetto/prototypes/simplebus/simplebus.properties" />
     </list>
     <ignored path="simple-bus-mongo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -64,8 +50,8 @@
       <file leaf-file-name="MessageFlowIntegrationTest.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/com/whiteandreetto/prototypes/simplebus/MessageFlowIntegrationTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5441389" vertical-offset="479" max-vertical-offset="1170">
-              <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.4730539" vertical-offset="479" max-vertical-offset="1170">
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1178,7 +1164,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1400" height="860" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32884097" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1196,7 +1182,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.13402061" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15832107" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3210604" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3210604" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1819407" sideWeight="0.49963045" order="2" side_tool="false" content_ui="tabs" x="18" y="162" width="1420" height="666" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1680,8 +1666,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/whiteandreetto/prototypes/simplebus/MessageFlowIntegrationTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5441389" vertical-offset="479" max-vertical-offset="1170">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.4730539" vertical-offset="479" max-vertical-offset="1170">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding />
         </state>
       </provider>

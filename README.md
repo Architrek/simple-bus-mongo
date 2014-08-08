@@ -19,7 +19,8 @@ Check [this property file] (src/test/resources/META-INF/com/whiteandreetto/proto
 
 ```xml
 
- <!-- Spring Framework - Core -->
+        <!-- Spring Framework - Core -->
+        
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -50,6 +51,11 @@ Check [this property file] (src/test/resources/META-INF/com/whiteandreetto/proto
             </exclusions>
         </dependency>
 ```
+
+### XML-less configuration
+
+This prototype uses java-based Spring configuration items.
+Configuration entry point is [AppConfig.java] (master/src/main/java/com/whiteandreetto/prototypes/simplebus/AppConfig.java)
 
 
 

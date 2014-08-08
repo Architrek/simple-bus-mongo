@@ -35,7 +35,6 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
-
 target/
 pom.xml.tag
 pom.xml.releaseBackup

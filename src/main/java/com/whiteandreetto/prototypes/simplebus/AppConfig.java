@@ -12,7 +12,11 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 import org.springframework.integration.config.EnableIntegration;
 
 /**
- * Created by anda on 06/08/14.
+ * Created by AANG on 07/08/14/01:35.
+ * <p/>
+ * Perfection is unachievable, I'm all right with Excellence
+ * <p/>
+ * (c) White Andreetto Consulting 2014 All rights reserved
  */
 @Configuration
 @EnableIntegration

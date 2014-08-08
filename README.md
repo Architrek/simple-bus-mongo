@@ -57,10 +57,92 @@ Check [this property file] (src/test/resources/META-INF/com/whiteandreetto/proto
 ### XML-less configuration
 
 This prototype uses java-based Spring configuration items.
-Configuration entry point is [AppConfig.java] (master/src/main/java/com/whiteandreetto/prototypes/simplebus/AppConfig.java)
+Configuration entry point is [AppConfig.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/AppConfig.java).
 
-This [package] (src/main/java/com/whiteandreetto/prototypes/simplebus/cfg) has two configuration classes, one implementing the general message flow, the other responsible for all things Mongo.
+AppConfig.java, imports @Configuration declarations from this [package] (src/main/java/com/whiteandreetto/prototypes/simplebus/cfg) which has two configuration classes, one implementing the general message flow, the other responsible for all things Mongo.
+
+```java
+
+@Configuration
+@EnableIntegration
+@IntegrationComponentScan
+@ComponentScan({"com.whiteandreetto.prototypes.simplebus", "com.whiteandreetto.prototypes.simplebus.dbevents"})
+@Import({MongoDBConfiguration.class, PlumbingConfiguration.class})
+
+```
+
+## Process Flow
+
+[PlumbingConfiguration.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/PlumbingConfiguration) defines the pipelines for message handling as it follows:
+
+Two gateway beans to simulate inbound and outbound queues
+
+```java
+
+    @Bean
+    @Description("The gateway service to entry the messaging system.")
+    public MessageChannel messageInboundChannel() {
+        return new DirectChannel();
+    }
+
+    @Bean
+    @Description("The gateway service to exit the messaging system.")
+    public MessageChannel messageOutboundChannel() {
+        return new DirectChannel();
+    }
+
+```
+
+Two endpoints as message destinations
+
+```java
+
+    @Bean
+    @Description("Persistent Message Store channel for the inbound requests.")
+    public MessageChannel messageEntryStoreChannel() {
+        final DirectChannel directChannel = new DirectChannel();
+        directChannel.addInterceptor(inboundMessageInterceptor);
+        return directChannel;
+    }
+
+    @Bean
+    @Description("Persistent Message Store channel for the outbound requests.")
+    public MessageChannel messageExitStoreChannel() {
+        final DirectChannel directChannel = new DirectChannel();
+        directChannel.addInterceptor(outboundMessageInterceptor);
+        return directChannel;
+    }
 
 
+```
+
+the relevant adapters to store messages at the end points:
+
+```java
+
+    @Bean
+    @ServiceActivator(inputChannel = "messageEntryStoreChannel")
+    @Description("Mongo DB Adapter for storing inbound requests on the circular buffer.")
+    public MessageHandler mongodbAdapterEntry() throws Exception {
+        final MongoDbStoringMessageHandler adapter = new MongoDbStoringMessageHandler(mongoDbFactory);
+        adapter.setCollectionNameExpression(new LiteralExpression(MONGO_DB_COLLECTION));
+        return adapter;
+    }
+
+
+    @Bean
+    @ServiceActivator(inputChannel = "messageExitStoreChannel")
+    @Description("Endpoint to store outbound messages.")
+    public MessageHandler mongodbAdapterEnd() throws Exception {
+        final MongoDbStoringMessageHandler adapter = new MongoDbStoringMessageHandler(mongoDbFactory);
+        adapter.setCollectionNameExpression(new LiteralExpression(PARKING_LOT));
+        return adapter;
+    }
+
+```
+
+
+
+ 
 
 

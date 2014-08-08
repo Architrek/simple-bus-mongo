@@ -23,36 +23,31 @@ import org.springframework.messaging.MessageHandler;
 @IntegrationComponentScan({"com.whiteandreetto.prototypes.simplebus.endpoint", "com.whiteandreetto.prototypes.simplebus.gateway", "com.whiteandreetto.prototypes.simplebus.interceptor"})
 public class PlumbingConfiguration {
 
+    @Autowired
+    MongoDbFactory mongoDbFactory;
+    @Autowired
+    InboundMessageInterceptor inboundMessageInterceptor;
+    @Autowired
+    OutboundMessageInterceptor outboundMessageInterceptor;
     @Value("${mongo.db.message.collection}")
     private String MONGO_DB_COLLECTION;
-
     @Value("${mongo.db.message.processed}")
     private String PARKING_LOT;
 
-    @Autowired
-    MongoDbFactory mongoDbFactory;
-
-    @Autowired
-    InboundMessageInterceptor inboundMessageInterceptor;
-
-    @Autowired
-    OutboundMessageInterceptor outboundMessageInterceptor;
-
-
     @Bean
-    @Description("Entry the messaging system through the gateway.")
+    @Description("The gateway service to entry the messaging system.")
     public MessageChannel messageInboundChannel() {
         return new DirectChannel();
     }
 
     @Bean
-    @Description("Exit the messaging system through the gateway")
+    @Description("The gateway service to exit the messaging system.")
     public MessageChannel messageOutboundChannel() {
         return new DirectChannel();
     }
 
     @Bean
-    @Description("Persistent Message Store for the inbound requests.")
+    @Description("Persistent Message Store channel for the inbound requests.")
     public MessageChannel messageEntryStoreChannel() {
         final DirectChannel directChannel = new DirectChannel();
         directChannel.addInterceptor(inboundMessageInterceptor);
@@ -60,7 +55,7 @@ public class PlumbingConfiguration {
     }
 
     @Bean
-    @Description("Persistent Message Store for the outbound requests.")
+    @Description("Persistent Message Store channel for the outbound requests.")
     public MessageChannel messageExitStoreChannel() {
         final DirectChannel directChannel = new DirectChannel();
         directChannel.addInterceptor(outboundMessageInterceptor);
@@ -69,6 +64,7 @@ public class PlumbingConfiguration {
 
     @Bean
     @ServiceActivator(inputChannel = "messageEntryStoreChannel")
+    @Description("Mongo DB Adapter for storing inbound requests on the circular buffer.")
     public MessageHandler mongodbAdapterEntry() throws Exception {
         final MongoDbStoringMessageHandler adapter = new MongoDbStoringMessageHandler(mongoDbFactory);
         adapter.setCollectionNameExpression(new LiteralExpression(MONGO_DB_COLLECTION));
@@ -78,6 +74,7 @@ public class PlumbingConfiguration {
 
     @Bean
     @ServiceActivator(inputChannel = "messageExitStoreChannel")
+    @Description("Endpoint to store outbound messages.")
     public MessageHandler mongodbAdapterEnd() throws Exception {
         final MongoDbStoringMessageHandler adapter = new MongoDbStoringMessageHandler(mongoDbFactory);
         adapter.setCollectionNameExpression(new LiteralExpression(PARKING_LOT));

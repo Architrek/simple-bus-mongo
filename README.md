@@ -6,3 +6,9 @@ Following the [article reposted by Mondora] (https://mondora.com/#!/post/eafc1a1
 ## Introduction
 
 This implementation of a circular buffer to support a message queue is implemented with Spring and Mongo DB
+
+## Environment
+
+Check [this property file] (blob/master/src/test/resources/META-INF/com/whiteandreetto/prototypes/simplebus/simplebus.properties) for details about environmental dependencies
+
+

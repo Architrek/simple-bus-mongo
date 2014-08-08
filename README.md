@@ -17,6 +17,8 @@ Check [this property file] (src/test/resources/META-INF/com/whiteandreetto/proto
 
 ## Spring
 
+### Dependencies
+
 ```xml
 
         <!-- Spring Framework - Core -->
@@ -57,6 +59,6 @@ Check [this property file] (src/test/resources/META-INF/com/whiteandreetto/proto
 This prototype uses java-based Spring configuration items.
 Configuration entry point is [AppConfig.java] (master/src/main/java/com/whiteandreetto/prototypes/simplebus/AppConfig.java)
 
-
+##
 
 

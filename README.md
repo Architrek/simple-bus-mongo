@@ -9,6 +9,6 @@ This implementation of a circular buffer to support a message queue is implement
 
 ## Environment
 
-Check [this property file] (blob/master/src/test/resources/META-INF/com/whiteandreetto/prototypes/simplebus/simplebus.properties) for details about environmental dependencies
+Check [this property file] (src/test/resources/META-INF/com/whiteandreetto/prototypes/simplebus/simplebus.properties) for details about environmental dependencies
 
 

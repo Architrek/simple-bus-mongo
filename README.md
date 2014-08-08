@@ -59,6 +59,8 @@ Check [this property file] (src/test/resources/META-INF/com/whiteandreetto/proto
 This prototype uses java-based Spring configuration items.
 Configuration entry point is [AppConfig.java] (master/src/main/java/com/whiteandreetto/prototypes/simplebus/AppConfig.java)
 
-This [package] (src/main/java/com/whiteandreetto/prototypes/simplebus/cfg) has two configuraiton classes implementing one the general message flow, the other is responsible for all things Mongo
+This [package] (src/main/java/com/whiteandreetto/prototypes/simplebus/cfg) has two configuration classes, one implementing the general message flow, the other responsible for all things Mongo.
+
+
 
 

@@ -4,8 +4,6 @@
     <list id="1ab2636c-8729-459c-bfeb-c60f8410e0ac" name="Default" comment="beautifying" />
     <list default="true" id="e9af5b56-65d2-4d36-bcef-834e8bed1fd9" name="ignore" comment="ignore">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simple-bus-mongo.iml" afterPath="$PROJECT_DIR$/simple-bus-mongo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simple-bus-mongo.ipr" afterPath="$PROJECT_DIR$/simple-bus-mongo.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simple-bus-mongo.iws" afterPath="$PROJECT_DIR$/simple-bus-mongo.iws" />
     </list>
     <ignored path="simple-bus-mongo.iws" />
@@ -32,8 +30,8 @@
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.79970324" vertical-offset="376" max-vertical-offset="1050">
-              <caret line="61" column="193" selection-start-line="61" selection-start-column="193" selection-end-line="61" selection-end-column="193" />
+            <state vertical-scroll-proportion="0.79970324" vertical-offset="376" max-vertical-offset="1080">
+              <caret line="61" column="94" selection-start-line="61" selection-start-column="94" selection-end-line="61" selection-end-column="94" />
               <folding />
             </state>
           </provider>
@@ -1181,7 +1179,8 @@
     </option>
     <MESSAGE value="initial commit" />
     <MESSAGE value="beautifying" />
-    <option name="LAST_COMMIT_MESSAGE" value="beautifying" />
+    <MESSAGE value="ignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="ignore" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1615,8 +1614,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79970324" vertical-offset="376" max-vertical-offset="1050">
-          <caret line="61" column="193" selection-start-line="61" selection-start-column="193" selection-end-line="61" selection-end-column="193" />
+        <state vertical-scroll-proportion="0.79970324" vertical-offset="376" max-vertical-offset="1080">
+          <caret line="61" column="94" selection-start-line="61" selection-start-column="94" selection-end-line="61" selection-end-column="94" />
           <folding />
         </state>
       </provider>

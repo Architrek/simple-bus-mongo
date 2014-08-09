@@ -29,11 +29,11 @@ A solution of this caliber is ideally fit for entering the Integration Architect
  
 This prototype has been stress tested with the following benchmark on a circular buffer of 100 elements:
  
- |Throughput (msg/sec)| Reliability|
- |-------------------:|-----------:|
- | up to 500|100%|
- |500 - 700|95%|
- |700 - 1000|80%|
+ Throughput (msg/sec)| Reliability|
+ ---:|---:|
+ up to 500|100%|
+ 500 - 700|95%|
+ 700 - 1000|80%|
 
 Message loss is due to the fastest write cycle which fills the buffer before it could be read.
 

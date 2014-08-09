@@ -1,11 +1,12 @@
 ![alt text](http://whiteandreetto.com/wp-content/uploads/2014/08/logo.full_.black_.png "White Andreetto Consulting")
 
 
-# Simple Service Bus
-## Implementing Message Queue with MongoDB & Spring
+# A Simple Service Bus Prototype
+## Implementing a Persistent Message Queue with MongoDB & Spring
 ================
 
-Following the [article reposted by Mondora] (https://mondora.com/#!/post/eafc1a14af194ebeb8d0ccc425cbd803) here's a simple implementation.
+Following the [article reposted by Mondora] (https://mondora.com/#!/post/eafc1a14af194ebeb8d0ccc425cbd803) here's a simple implementation of a circular buffer and relevant read components.
+The implementation relies on MongoDB Capped Collections and Tailable Cursor. Check out this page for the key details. 
 
 ## Introduction
 

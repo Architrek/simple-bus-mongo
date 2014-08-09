@@ -29,9 +29,11 @@ A solution of this caliber is ideally fit for entering the Integration Architect
  
 This prototype has been stress tested with the following benchmark on a circular buffer of 100 elements:
  
- up to 500 msg/sec 100% 
- 500 - 700 msg/sec  95%
- 700 - 1000 msg7sec 80%
+ |Throughput (msg/sec)| Reliability|
+ |-------------------:|-----------:|
+ | up to 500|100%|
+ |500 - 700|95%|
+ |700 - 1000|80%|
 
 Message loss is due to the fastest write cycle which fills the buffer before it could be read.
 
@@ -126,12 +128,6 @@ AppConfig.java, imports @Configuration declarations from this [package] (src/mai
 ```
 ## Mongo DB configuration
 [MongoDBConfiguration.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/MongoDBConfiguration.java) defines a [MongoDbFactry](http://docs.spring.io/spring-data/mongodb/docs/current/api/org/springframework/data/mongodb/MongoDbFactory.html) to allow access to the Mongo DB server.
-
-```java
-
-
-```
-
 
 
 ## Process Flow

@@ -163,6 +163,44 @@ The read operations are carried on by the class [DBListener.java] (src/main/java
 public class DBListener extends Thread {...}
 
 ```
+
+The key of the read operations is the tailable cursor created on the capped collection.
+
+```java
+
+    public class DBListener extends Thread {
+    
+        ...
+    
+        private DBCursor createCursor(final long pLast) {
+    
+            try {
+                final DBCollection col = mongoDbFactory.getDb().getCollection(MONGO_DB_COLLECTION);
+                final ArrayList<BasicDBObject> and = new ArrayList<>();
+    
+                if (pLast != 0) {
+                    and.add(new BasicDBObject("timestamp", new BasicDBObject("$gt", pLast)));
+                }
+    
+                final BasicDBObject query = new BasicDBObject("$and", and);
+    
+                return col.find(query)
+                        .sort(new BasicDBObject("$natural", 1))
+                        .addOption(Bytes.QUERYOPTION_TAILABLE)
+                        .addOption(Bytes.QUERYOPTION_AWAITDATA);
+    
+            } catch (DataAccessException e) {
+                logger.error("ERROR! {}", e.getMessage());
+            }
+            return null;
+        }
+
+    }
+
+```
+
+
+
 [DBListener.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/DBListener.java) is managed by [DBListenerHandler.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/DBListenerHandler.java) which itself if a Spring bean and it's operated from [ContextStartEventHandler.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/ContextStartEventHandler.java) and [ContextStopEventHandler.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/ContextStopEventHandler.java)
 
 Basically at Spring Context Refresh, the ContextStartEventHandler.java initiates read operations

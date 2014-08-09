@@ -32,20 +32,21 @@
 
 
     <scm>
-        <connection>scm:git:ssh://github.com/motherblessing/simple-bus-mongo.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/motherblessing/simple-bus-mongo.git</developerConnection>
-        <url>https://github.com/motherblessing/simple-bus-mongo.git</url>
+        <connection>scm:git:ssh://github.com/WhiteAndreettoConsulting/simple-bus-mongo.git</connection>
+        <developerConnection>scm:git:ssh://github.com/WhiteAndreettoConsulting/simple-bus-mongo.git
+        </developerConnection>
+        <url>https://github.com/WhiteAndreettoConsulting/simple-bus-mongo.git</url>
     </scm>
 
 
     <distributionManagement>
         <repository>
             <id>repo</id>
-            <url>https://github.com/cemerick/cemerick-mvn-repo/raw/master/releases</url>
+            <url>https://github.com/WhiteAndreettoConsulting/whiteandreetto-mvn-repo/tree/master/releases</url>
         </repository>
         <snapshotRepository>
             <id>snapshot-repo</id>
-            <url>https://github.com/cemerick/cemerick-mvn-repo/raw/master/snapshots</url>
+            <url>https://github.com/WhiteAndreettoConsulting/whiteandreetto-mvn-repo/tree/master/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 

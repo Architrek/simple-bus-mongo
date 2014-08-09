@@ -1,6 +1,7 @@
 ![alt text](http://whiteandreetto.com/wp-content/uploads/2014/08/logo.full_.black_.png "White Andreetto Consulting")
 
 
+
 # A Simple Service Bus Prototype
 ## Implementing a Persistent Message Queue with MongoDB & Spring
 ================

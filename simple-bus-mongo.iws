@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list id="1ab2636c-8729-459c-bfeb-c60f8410e0ac" name="Default" comment="beautifying" />
-    <list default="true" id="e9af5b56-65d2-4d36-bcef-834e8bed1fd9" name="ignore" comment="some minor tweaks">
+    <list default="true" id="e9af5b56-65d2-4d36-bcef-834e8bed1fd9" name="ignore" comment="Core Documentation Updated">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/simple-bus-mongo.iws" afterPath="$PROJECT_DIR$/simple-bus-mongo.iws" />
     </list>
@@ -53,13 +53,23 @@
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5700637" vertical-offset="2597" max-vertical-offset="4005">
-              <caret line="197" column="5" selection-start-line="197" selection-start-column="5" selection-end-line="197" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4080">
+              <caret line="0" column="85" selection-start-line="0" selection-start-column="85" selection-end-line="0" selection-end-column="85" />
               <folding />
             </state>
           </provider>
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MongoDBConfiguration.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/MongoDBConfiguration.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1965">
+              <caret line="69" column="34" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="34" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -450,7 +460,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/interceptor/OutboundMessageInterceptor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/endpoint/OutboundMessageBuilder.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/whiteandreetto/prototypes/simplebus/utils/DBHelper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/MongoDBConfiguration.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/whiteandreetto/prototypes/simplebus/AbstractIntegrationTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/build.gradle" />
@@ -464,6 +473,7 @@
         <option value="$PROJECT_DIR$/src/test/java/com/whiteandreetto/prototypes/simplebus/MessageFlowIntegrationTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/endpoint/InboundMessageBuilder.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/DBListener.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/MongoDBConfiguration.java" />
         <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
@@ -1264,7 +1274,8 @@
     <MESSAGE value="ignore file" />
     <MESSAGE value="ignore" />
     <MESSAGE value="some minor tweaks" />
-    <option name="LAST_COMMIT_MESSAGE" value="some minor tweaks" />
+    <MESSAGE value="Core Documentation Updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Core Documentation Updated" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1556,14 +1567,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/MongoDBConfiguration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1965">
-          <caret line="0" column="51" selection-start-line="0" selection-start-column="8" selection-end-line="0" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.79831934" vertical-offset="0" max-vertical-offset="3195">
@@ -1706,10 +1709,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/MongoDBConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1965">
+          <caret line="69" column="34" selection-start-line="69" selection-start-column="34" selection-end-line="69" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5700637" vertical-offset="2597" max-vertical-offset="4005">
-          <caret line="197" column="5" selection-start-line="197" selection-start-column="5" selection-end-line="197" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4080">
+          <caret line="0" column="85" selection-start-line="0" selection-start-column="85" selection-end-line="0" selection-end-column="85" />
           <folding />
         </state>
       </provider>

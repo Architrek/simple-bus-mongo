@@ -56,7 +56,7 @@ public class MessageFlowIntegrationTest extends AbstractIntegrationTest {
             // SOME RANDOM INTERVAL BETWEEN MESSAGES
             try {
                 //Thread.sleep(new Random(System.nanoTime()).nextInt(100));
-                Thread.sleep(10);
+                Thread.sleep(35);
             } catch (final InterruptedException ie) {
                 logger.error(ie.getMessage());
             }

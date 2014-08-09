@@ -38,7 +38,7 @@ Message loss is due to the fastest write cycle which fills the buffer before it 
 ### Next steps
 A simple filtering mechanism is about to be implemented in order to allow concurrent queue consumption and therefore maximize throughput. Stay tuned.
 
-## Introduction
+## Prototype Implementation
 
 This is the implementation of a circular buffer to support a message queue implemented with Spring and Mongo DB
 
@@ -123,10 +123,19 @@ AppConfig.java, imports @Configuration declarations from this [package] (src/mai
 @Import({MongoDBConfiguration.class, PlumbingConfiguration.class})
 
 ```
+## Mongo DB configuration
+[MongoDBConfiguration.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/MongoDBConfiguration.java) defines a [MongoDbFactry](http://docs.spring.io/spring-data/mongodb/docs/current/api/org/springframework/data/mongodb/MongoDbFactory.html) to allow access to the Mongo DB server.
+
+```java
+
+
+```
+
+
 
 ## Process Flow
 
-[PlumbingConfiguration.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/PlumbingConfiguration) defines the pipelines for message handling as it follows:
+[PlumbingConfiguration.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/cfg/PlumbingConfiguration.java) defines the pipelines for message handling as it follows:
 
 Two gateway beans to simulate inbound and outbound queues
 

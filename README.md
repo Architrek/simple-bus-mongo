@@ -1,14 +1,15 @@
 ![alt text](http://whiteandreetto.com/wp-content/uploads/2014/08/logo.full_.black_.png "White Andreetto Consulting")
 
 
-# simple-bus-mongo
+# Simple Service Bus
+## Implementing Message Queue with MongoDB & Spring
 ================
 
 Following the [article reposted by Mondora] (https://mondora.com/#!/post/eafc1a14af194ebeb8d0ccc425cbd803) here's a simple implementation.
 
 ## Introduction
 
-This implementation of a circular buffer to support a message queue is implemented with Spring and Mongo DB
+This is the implementation of a circular buffer to support a message queue implemented with Spring and Mongo DB
 
 ## Environment
 

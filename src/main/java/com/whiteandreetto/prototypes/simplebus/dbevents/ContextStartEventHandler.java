@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -44,7 +43,7 @@ public class ContextStartEventHandler implements ApplicationListener<ContextRefr
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
-        if (! aBoolean.get()) {
+        if (!aBoolean.get()) {
 
             logger.info("----------------------------------------");
             logger.info("---------------INITIALIZED--------------");
@@ -63,8 +62,6 @@ public class ContextStartEventHandler implements ApplicationListener<ContextRefr
 
     @Override
     public void destroy() throws Exception {
-        //dbListenerHandler.destroy();
-        //logger.info("listener: {}",dbListenerHandler.toString());
         logger.info("Shutdown completed");
     }
 }

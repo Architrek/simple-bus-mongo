@@ -29,13 +29,11 @@ public class ContextStopEventHandler implements ApplicationListener<ContextClose
         logger.info("----------------DISPOSED----------------");
         logger.info("----------------------------------------");
 
-
         try {
             dbListenerHandler.finishListening();
         } catch (Exception e) {
             logger.error("ERROR! {}", e.getMessage());
         }
-
 
     }
 

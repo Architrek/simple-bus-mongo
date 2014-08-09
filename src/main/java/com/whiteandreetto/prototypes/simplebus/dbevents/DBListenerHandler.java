@@ -24,21 +24,15 @@ import java.util.concurrent.atomic.AtomicLong;
 public class DBListenerHandler implements DisposableBean {
 
     private static final Logger logger = LoggerFactory.getLogger(DBListenerHandler.class);
-
+    final AtomicBoolean readRunning = new AtomicBoolean(true);
+    final AtomicLong readCounter = new AtomicLong(0);
     @Autowired
     MongoDbFactory mongoDbFactory;
-
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     QueueSendService queueSendService;
-
     @Value("${mongo.db.message.collection}")
     private String MONGO_DB_COLLECTION;
-
-
-    final AtomicBoolean readRunning = new AtomicBoolean(true);
-    final AtomicLong readCounter = new AtomicLong(0);
-
     private Thread listener;
 
 
@@ -79,7 +73,7 @@ public class DBListenerHandler implements DisposableBean {
 
     @Override
     public void destroy() throws Exception {
-        logger.info("Handler Shutdown");
+        logger.info("Shutdown sequence compelted");
        // listener=null;
     }
 

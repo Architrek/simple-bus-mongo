@@ -25,12 +25,16 @@ public class PlumbingConfiguration {
 
     @Autowired
     MongoDbFactory mongoDbFactory;
+
     @Autowired
     InboundMessageInterceptor inboundMessageInterceptor;
+
     @Autowired
     OutboundMessageInterceptor outboundMessageInterceptor;
+
     @Value("${mongo.db.message.collection}")
     private String MONGO_DB_COLLECTION;
+
     @Value("${mongo.db.message.processed}")
     private String PARKING_LOT;
 

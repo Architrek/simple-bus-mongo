@@ -25,24 +25,19 @@ import org.springframework.util.Assert;
 public class MessageFlowIntegrationTest extends AbstractIntegrationTest {
 
     private static final Logger logger = LoggerFactory.getLogger(MessageFlowIntegrationTest.class);
-
+    @Autowired
+    protected MongoDbFactory factory;
+    @Value("${mongo.db.message.collection}")
+    protected String MONGO_DB_COLLECTION;
+    @Value("${mongo.db.message.processed}")
+    protected String PARKING_LOT;
+    @Value("${mongo.db.message.collection.max}")
+    protected Integer COLLECTION_CAP;
+    @Value("${mongo.db.message.collection.size}")
+    protected Integer COLLECTION_SIZE;
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     MessageService messageService;
-
-    @Autowired
-    MongoDbFactory factory;
-
-
-    @Value("${mongo.db.message.collection}")
-    private String MONGO_DB_COLLECTION;
-
-    @Value("${mongo.db.message.processed}")
-    private String PARKING_LOT;
-
-    @Value("${mongo.db.message.collection.max}")
-    private Integer COLLECTION_CAP;
-
 
     @Test
     public void testSomething() throws Exception {

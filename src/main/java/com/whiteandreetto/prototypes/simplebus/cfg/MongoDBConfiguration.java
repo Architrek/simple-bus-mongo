@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -15,6 +14,7 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.util.Assert;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -24,32 +24,23 @@ import java.util.Set;
 @PropertySource("classpath:META-INF/com/whiteandreetto/prototypes/simplebus/simplebus.properties")
 public class MongoDBConfiguration {
 
+    private static final Logger logger = LoggerFactory.getLogger(MongoDBConfiguration.class);
     @Value("${mongo.db}")
     private String MONGO_DB;
-
     @Value("${mongo.db.host}")
     private String MONGO_DB_HOST;
-
     @Value("${mongo.db.port}")
     private String MONGO_DB_PORT;
-
     @Value("${mongo.db.message.collection}")
     private String MONGO_DB_COLLECTION;
-
     @Value("${mongo.db.message.processed}")
     private String PARKING_LOT;
-
     @Value("${mongo.db.clean.at.startup}")
     private boolean CLEAN_AT_STARTUP;
-
     @Value("${mongo.db.message.collection.max}")
     private Long MAXCOUNT;
-
     @Value("${mongo.db.message.collection.size}")
     private Long SIZE;
-
-    private static final Logger logger = LoggerFactory.getLogger(MongoDBConfiguration.class);
-
 
     /**
      * Initializes the factory and collections if required
@@ -60,10 +51,27 @@ public class MongoDBConfiguration {
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
 
-        final SimpleMongoDbFactory simpleMongoDbFactory = new SimpleMongoDbFactory(new MongoClient(MONGO_DB_HOST, Integer.parseInt(MONGO_DB_PORT)), MONGO_DB);
+        Mongo mongo = new MongoClient(MONGO_DB_HOST, Integer.parseInt(MONGO_DB_PORT));
+
+        List<String> databaseNames = mongo.getDatabaseNames();
+
+        boolean found = false;
+
+        for (String databaseName : databaseNames) {
+            if (databaseName.equalsIgnoreCase(MONGO_DB)) {
+                found = true;
+                break;
+            }
+        }
 
 
-        final DB db = simpleMongoDbFactory.getDb();
+        final SimpleMongoDbFactory simpleMongoDbFactory = new SimpleMongoDbFactory(mongo, MONGO_DB);
+
+
+        final DB db;
+        if (found) db = simpleMongoDbFactory.getDb();
+        else db = simpleMongoDbFactory.getDb(MONGO_DB);
+
 
         //INIT COLLECTIONS IF NOT PRESENT
 

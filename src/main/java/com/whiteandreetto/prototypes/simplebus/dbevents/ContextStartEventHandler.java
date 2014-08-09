@@ -62,6 +62,6 @@ public class ContextStartEventHandler implements ApplicationListener<ContextRefr
 
     @Override
     public void destroy() throws Exception {
-        logger.info("Shutdown completed");
+        logger.info("Shutdown");
     }
 }

@@ -154,6 +154,68 @@ the relevant adapters to store messages at the end points:
 
 ```
 
+## Tailable cursor
+
+The read operations are carried on by the class [DBListener.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/DBListener.java) which extendsThread.
+
+```java
+
+public class DBListener extends Thread {...}
+
+```
+[DBListener.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/DBListener.java) is managed by [DBListenerHandler.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/DBListenerHandler.java) which itself if a Spring bean and it's operated from [ContextStartEventHandler.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/ContextStartEventHandler.java) and [ContextStopEventHandler.java] (src/main/java/com/whiteandreetto/prototypes/simplebus/dbevents/ContextStopEventHandler.java)
+
+Basically at Spring Context Refresh, the ContextStartEventHandler.java initiates read operations
+
+```java
+    
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+
+        if (!aBoolean.get()) {
+
+            logger.info("----------------------------------------");
+            logger.info("---------------INITIALIZED--------------");
+            logger.info("----------------------------------------");
+
+            try {
+                dbListenerHandler.beginListening();
+            } catch (Exception e) {
+                logger.error("ERROR! {}", e.getMessage());
+            }
+            aBoolean.set(true);
+        }
+
+    }
+    
+```
+
+Similarly class ContextStopEventHandler.java interrupts read operations on a ContextClosedEvent
+
+```java
+
+
+    @Override
+    public void onApplicationEvent(ContextClosedEvent contextClosedEvent) {
+
+        logger.info("----------------------------------------");
+        logger.info("----------------DISPOSED----------------");
+        logger.info("----------------------------------------");
+
+        try {
+            dbListenerHandler.finishListening();
+        } catch (Exception e) {
+            logger.error("ERROR! {}", e.getMessage());
+        }
+
+    }
+
+
+```
+
+
+
+
 
 
  

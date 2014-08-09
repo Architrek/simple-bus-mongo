@@ -34,7 +34,7 @@ public class DBListener extends Thread {
     private AtomicBoolean running;
     private AtomicLong counter;
     private QueueSendService queueSendService;
-    private boolean resendDuplicates;
+
 
     private String MONGO_DB_COLLECTION;
 
@@ -82,17 +82,11 @@ public class DBListener extends Thread {
 
                                         if (processedMessageIds.contains(id)) {
                                             logger.warn("Duplicate id found: " + id);
-                                            if (resendDuplicates) {
-                                                processedMessageIds.add(id);
-                                                queueSendService.process(messageFromBuffer);
-                                                counter.incrementAndGet();
-                                            }
-                                        } else {
-
-                                            processedMessageIds.add(id);
-                                            queueSendService.process(messageFromBuffer);
-                                            counter.incrementAndGet();
                                         }
+
+                                        processedMessageIds.add(id);
+                                        queueSendService.process(messageFromBuffer);
+                                        counter.incrementAndGet();
 
                                     } catch (NullPointerException e) {
                                         logger.warn("Circular buffer restart");
@@ -135,10 +129,11 @@ public class DBListener extends Thread {
         try {
             final DBCollection col = mongoDbFactory.getDb().getCollection(MONGO_DB_COLLECTION);
             final ArrayList<BasicDBObject> and = new ArrayList<>();
-            and.add(new BasicDBObject("isReadable", new BasicDBObject("$eq", true)));
+
             if (pLast != 0) {
                 and.add(new BasicDBObject("timestamp", new BasicDBObject("$gt", pLast)));
             }
+
             final BasicDBObject query = new BasicDBObject("$and", and);
 
             return col.find(query)

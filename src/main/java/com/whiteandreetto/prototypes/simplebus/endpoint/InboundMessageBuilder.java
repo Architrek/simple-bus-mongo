@@ -2,7 +2,6 @@ package com.whiteandreetto.prototypes.simplebus.endpoint;
 
 import org.springframework.integration.IntegrationMessageHeaderAccessor;
 import org.springframework.integration.annotation.Transformer;
-import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +34,6 @@ public class InboundMessageBuilder {
         dbo.put("sender", accessor.getHeader("SENDER"));
         dbo.put("uuid", UUID.randomUUID());
         dbo.put("payload", msg.getPayload());
-        dbo.put("isReadable",true);
 
         return dbo;
     }

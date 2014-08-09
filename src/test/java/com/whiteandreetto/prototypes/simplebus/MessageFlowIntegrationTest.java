@@ -14,8 +14,6 @@ import org.springframework.messaging.Message;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
 
-import java.util.Random;
-
 /**
  * Created by AANG on 07/08/14/14:11.
  * <p/>
@@ -49,6 +47,10 @@ public class MessageFlowIntegrationTest extends AbstractIntegrationTest {
     @Test
     public void testSomething() throws Exception {
 
+
+        Thread.sleep(1000);
+
+
         for (int idx = 0; idx < 100; idx++) {
 
             // SOME RANDOM INTERVAL BETWEEN MESSAGES
@@ -69,6 +71,9 @@ public class MessageFlowIntegrationTest extends AbstractIntegrationTest {
             messageService.process(oneMessage);
 
         }
+
+
+        Thread.sleep(1000);
 
         DBCollection col = factory.getDb().getCollection(MONGO_DB_COLLECTION);
 

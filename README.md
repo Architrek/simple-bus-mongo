@@ -219,27 +219,28 @@ The key of the read operations is the tailable cursor created on the capped coll
         ...
     
         private DBCursor createCursor(final long pLast) {
-    
-            try {
-                final DBCollection col = mongoDbFactory.getDb().getCollection(MONGO_DB_COLLECTION);
-                final ArrayList<BasicDBObject> and = new ArrayList<>();
-    
-                if (pLast != 0) {
-                    and.add(new BasicDBObject("timestamp", new BasicDBObject("$gt", pLast)));
+        
+                try {
+                    final DBCollection col = mongoDbFactory.getDb().getCollection(MONGO_DB_COLLECTION);
+                    final ArrayList<BasicDBObject> and = new ArrayList<>();
+        
+                    and.add(new BasicDBObject(Bytes.QUERYOPTION_TAILABLE));
+                    and.add(new BasicDBObject(Bytes.QUERYOPTION_AWAITDATA));
+        
+                    if (pLast != 0) {
+                        and.add(new BasicDBObject("timestamp", new BasicDBObject("$gt", pLast)));
+                    }
+        
+                    final BasicDBObject query = new BasicDBObject("$and", and);
+        
+                    return col.find(query)
+                            .sort(new BasicDBObject("$natural", 1));
+        
+                } catch (DataAccessException e) {
+                    logger.error("ERROR! {}", e.getMessage());
                 }
-    
-                final BasicDBObject query = new BasicDBObject("$and", and);
-    
-                return col.find(query)
-                        .sort(new BasicDBObject("$natural", 1))
-                        .addOption(Bytes.QUERYOPTION_TAILABLE)
-                        .addOption(Bytes.QUERYOPTION_AWAITDATA);
-    
-            } catch (DataAccessException e) {
-                logger.error("ERROR! {}", e.getMessage());
+                return null;
             }
-            return null;
-        }
 
     }
 

@@ -1,4 +1,4 @@
-![alt text](http://whiteandreetto.com/wp-content/uploads/2014/08/logo.full_.black_.png "White Andreetto Consulting")
+![alt text](http://whiteandreetto.com/wp-content/uploads/2015/06/WHITEANDREETTO.CONSULTING.png?ref=github "White Andreetto Consulting")
 
 
 
